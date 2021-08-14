@@ -3,6 +3,7 @@ import PlaceOrder from './PlaceOrder';
 test('Deve fazer um pedido', function () {
   const input = {
     cpf: '778.278.412-36',
+    zipCode: '13.426.059',
     items: [
       { id: '1', quantity: 2 },
       { id: '2', quantity: 1 },
@@ -12,12 +13,13 @@ test('Deve fazer um pedido', function () {
   };
   const placeOrder = new PlaceOrder();
   const output = placeOrder.execute(input);
-  expect(output.total).toBe(5672);
+  expect(output.total).toBe(5982);
 });
 
 test('Deve fazer um pedido com cupom de desconto expirado', function () {
   const input = {
     cpf: '778.278.412-36',
+    zipCode: '13.426.059',
     items: [
       { id: '1', quantity: 2 },
       { id: '2', quantity: 1 },
@@ -27,12 +29,13 @@ test('Deve fazer um pedido com cupom de desconto expirado', function () {
   };
   const placeOrder = new PlaceOrder();
   const output = placeOrder.execute(input);
-  expect(output.total).toBe(7090);
+  expect(output.total).toBe(7400);
 });
 
 test('Deve fazer um pedido com cálculo de frete', function () {
   const input = {
     cpf: '778.278.412-36',
+    zipCode: '13.426.059',
     items: [
       { id: '1', quantity: 2 },
       { id: '2', quantity: 1 },
