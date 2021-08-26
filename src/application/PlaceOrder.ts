@@ -1,12 +1,11 @@
-import { FreightCalculator } from './FreightCalculator';
+import { FreightCalculator } from '../domain/service/FreightCalculator';
 import { PlaceOrderInput } from './PlaceOrderInput';
 import { PlaceOrderOutput } from './PlaceOrderOutput';
-import Order from './Order';
-import ZipCodeCalculatorAPI from './ZipCodeCalculatorAPI';
-import ZipCodeCalculatorAPIMemory from './ZipCodeCalculatorAPIMemory';
-import ItemRepository from './ItemRepository';
-import CouponRepository from './CouponRepository';
-import OrderRepository from './orderRepository';
+import Order from '../domain/entity/Order';
+import ZipCodeCalculatorAPI from '../domain/gateway/ZipCodeCalculatorAPI';
+import ItemRepository from '../domain/repository/ItemRepository';
+import CouponRepository from '../domain/repository/CouponRepository';
+import OrderRepository from '../domain/repository/OrderRepository';
 
 export default class PlaceOrder {
   zipCode: ZipCodeCalculatorAPI;
