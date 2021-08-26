@@ -1,4 +1,8 @@
+import CouponRepositoryMemory from './CouponRepositoryMemory';
+import ItemRepositoryMemory from './ItemRepositoryMemory';
+import OrderRepositoryMemory from './orderRepositoryMemory';
 import PlaceOrder from './PlaceOrder';
+import ZipCodeCalculatorAPIMemory from './ZipCodeCalculatorAPIMemory';
 
 test('Deve fazer um pedido', function () {
   const input = {
@@ -11,7 +15,11 @@ test('Deve fazer um pedido', function () {
     ],
     coupon: 'VALE20',
   };
-  const placeOrder = new PlaceOrder();
+  const itemRepository = new ItemRepositoryMemory();
+  const couponRepository = new CouponRepositoryMemory();
+  const orderRepository = new OrderRepositoryMemory();
+  const zipCodeCalculator = new ZipCodeCalculatorAPIMemory();
+  const placeOrder = new PlaceOrder(itemRepository, couponRepository, orderRepository, zipCodeCalculator);
   const output = placeOrder.execute(input);
   expect(output.total).toBe(5982);
 });
@@ -27,7 +35,11 @@ test('Deve fazer um pedido com cupom de desconto expirado', function () {
     ],
     coupon: 'VALE20_EXPIRED',
   };
-  const placeOrder = new PlaceOrder();
+  const itemRepository = new ItemRepositoryMemory();
+  const couponRepository = new CouponRepositoryMemory();
+  const orderRepository = new OrderRepositoryMemory();
+  const zipCodeCalculator = new ZipCodeCalculatorAPIMemory();
+  const placeOrder = new PlaceOrder(itemRepository, couponRepository, orderRepository, zipCodeCalculator);
   const output = placeOrder.execute(input);
   expect(output.total).toBe(7400);
 });
@@ -43,7 +55,11 @@ test('Deve fazer um pedido com cálculo de frete', function () {
     ],
     coupon: 'VALE20_EXPIRED',
   };
-  const placeOrder = new PlaceOrder();
+  const itemRepository = new ItemRepositoryMemory();
+  const couponRepository = new CouponRepositoryMemory();
+  const orderRepository = new OrderRepositoryMemory();
+  const zipCodeCalculator = new ZipCodeCalculatorAPIMemory();
+  const placeOrder = new PlaceOrder(itemRepository, couponRepository, orderRepository, zipCodeCalculator);
   const output = placeOrder.execute(input);
   expect(output.freight).toBe(310);
 });
