@@ -1,8 +1,8 @@
-import CouponRepositoryMemory from './CouponRepositoryMemory';
-import ItemRepositoryMemory from './ItemRepositoryMemory';
-import OrderRepositoryMemory from './orderRepositoryMemory';
-import PlaceOrder from './PlaceOrder';
-import ZipCodeCalculatorAPIMemory from './ZipCodeCalculatorAPIMemory';
+import ItemRepositoryMemory from '../../src/infra/repository/memory/ItemRepositoryMemory';
+import ZipCodeCalculatorAPIMemory from '../../src/infra/gateway/ZipCodeCalculatorAPIMemory';
+import CouponRepositoryMemory from '../../src/infra/repository/memory/CouponRepositoryMemory';
+import OrderRepositoryMemory from '../../src/infra/repository/memory/OrderRepositoryMemory';
+import PlaceOrder from '../../src/application/PlaceOrder';
 
 test('Deve fazer um pedido', function () {
   const input = {
