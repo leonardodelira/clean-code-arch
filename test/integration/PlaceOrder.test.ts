@@ -3,8 +3,10 @@ import ZipCodeCalculatorAPIMemory from '../../src/infra/gateway/ZipCodeCalculato
 import CouponRepositoryMemory from '../../src/infra/repository/memory/CouponRepositoryMemory';
 import OrderRepositoryMemory from '../../src/infra/repository/memory/OrderRepositoryMemory';
 import PlaceOrder from '../../src/application/PlaceOrder';
+import { ItemRepositoryPostgres } from '../../src/infra/repository/database/ItemRepositoryPostgres';
+import { PgPromiseDatabase } from '../../src/infra/database/PgPromiseDatabase';
 
-test('Deve fazer um pedido', function () {
+test('Deve fazer um pedido', async function () {
   const input = {
     cpf: '778.278.412-36',
     zipCode: '13.426.059',
@@ -15,16 +17,16 @@ test('Deve fazer um pedido', function () {
     ],
     coupon: 'VALE20',
   };
-  const itemRepository = new ItemRepositoryMemory();
+  const itemRepository = new ItemRepositoryPostgres(new PgPromiseDatabase());
   const couponRepository = new CouponRepositoryMemory();
   const orderRepository = new OrderRepositoryMemory();
   const zipCodeCalculator = new ZipCodeCalculatorAPIMemory();
   const placeOrder = new PlaceOrder(itemRepository, couponRepository, orderRepository, zipCodeCalculator);
-  const output = placeOrder.execute(input);
+  const output = await placeOrder.execute(input);
   expect(output.total).toBe(5982);
 });
 
-test('Deve fazer um pedido com cupom de desconto expirado', function () {
+test('Deve fazer um pedido com cupom de desconto expirado', async function () {
   const input = {
     cpf: '778.278.412-36',
     zipCode: '13.426.059',
@@ -40,11 +42,11 @@ test('Deve fazer um pedido com cupom de desconto expirado', function () {
   const orderRepository = new OrderRepositoryMemory();
   const zipCodeCalculator = new ZipCodeCalculatorAPIMemory();
   const placeOrder = new PlaceOrder(itemRepository, couponRepository, orderRepository, zipCodeCalculator);
-  const output = placeOrder.execute(input);
+  const output = await placeOrder.execute(input);
   expect(output.total).toBe(7400);
 });
 
-test('Deve fazer um pedido com cálculo de frete', function () {
+test('Deve fazer um pedido com cálculo de frete', async function () {
   const input = {
     cpf: '778.278.412-36',
     zipCode: '13.426.059',
@@ -60,6 +62,6 @@ test('Deve fazer um pedido com cálculo de frete', function () {
   const orderRepository = new OrderRepositoryMemory();
   const zipCodeCalculator = new ZipCodeCalculatorAPIMemory();
   const placeOrder = new PlaceOrder(itemRepository, couponRepository, orderRepository, zipCodeCalculator);
-  const output = placeOrder.execute(input);
+  const output = await placeOrder.execute(input);
   expect(output.freight).toBe(310);
 });

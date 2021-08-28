@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "tsc && jest ./dist"
+    "test": "tsc && jest ./dist --forceExit"
   },
   "keywords": [],
   "author": "",
@@ -12,6 +12,7 @@
   "dependencies": {
     "@types/jest": "^26.0.24",
     "jest": "^27.0.6",
+    "pg-promise": "^10.11.0",
     "typescript": "^4.3.5"
   }
 }
