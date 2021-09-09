@@ -3,4 +3,5 @@ export type PlaceOrderInput = {
   zipCode: string;
   items: any;
   coupon: string;
+  issueDate?: Date;
 };
