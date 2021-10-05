@@ -1,4 +1,4 @@
-import OrderItem from '../domain/entity/OrderItem';
+import OrderItem from '../../domain/entity/OrderItem';
 
 export type GetOrderOutput = {
   total: number;

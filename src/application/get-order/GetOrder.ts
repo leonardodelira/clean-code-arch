@@ -1,10 +1,10 @@
-import ItemRepository from '../domain/repository/ItemRepository';
-import CouponRepository from '../domain/repository/CouponRepository';
-import OrderRepository from '../domain/repository/OrderRepository';
+import ItemRepository from '../../domain/repository/ItemRepository';
+import CouponRepository from '../../domain/repository/CouponRepository';
+import OrderRepository from '../../domain/repository/OrderRepository';
 import { GetOrderOutput } from './GetOrderOutput';
-import RepositoryFactory from '../domain/factory/RepositoryFactory';
+import RepositoryFactory from '../../domain/factory/RepositoryFactory';
 
-export default class PlaceOrder {
+export default class GetOrder {
   itemRepository: ItemRepository;
   couponRepository: CouponRepository;
   orderRepository: OrderRepository;
