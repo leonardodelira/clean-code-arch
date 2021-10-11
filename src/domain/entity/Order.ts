@@ -11,6 +11,7 @@ export default class Order {
   issueDate: Date;
   sequence: number;
   code: OrderCode;
+  taxes: number;
 
   constructor(cpf: string, issueDate: Date = new Date(), sequence: number = 1) {
     this.cpf = new Cpf(cpf);
@@ -19,9 +20,10 @@ export default class Order {
     this.issueDate = issueDate;
     this.sequence = sequence;
     this.code = new OrderCode(issueDate, sequence);
+    this.taxes = 0;
   }
 
-  addItem(id: string, price: number, quantity: number) {
+  addItem(id: number, price: number, quantity: number) {
     this.items.push(new OrderItem(id, price, quantity));
   }
 

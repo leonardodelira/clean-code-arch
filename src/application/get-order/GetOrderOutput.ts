@@ -4,6 +4,7 @@ export type GetOrderOutput = {
   total: number;
   code: string;
   freight: number;
+  taxes: number;
   orderItems: {
     itemDescription?: string;
     price: number;

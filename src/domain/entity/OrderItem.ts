@@ -1,9 +1,9 @@
 export default class OrderItem {
-  id: string;
+  id: number;
   price: number;
   quantity: number;
 
-  constructor(id: string, price: number, quantity: number) {
+  constructor(id: number, price: number, quantity: number) {
     this.id = id;
     this.price = price;
     this.quantity = quantity;

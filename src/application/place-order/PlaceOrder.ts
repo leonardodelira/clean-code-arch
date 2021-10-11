@@ -7,17 +7,20 @@ import ItemRepository from '../../domain/repository/ItemRepository';
 import CouponRepository from '../../domain/repository/CouponRepository';
 import OrderRepository from '../../domain/repository/OrderRepository';
 import RepositoryFactory from '../../domain/factory/RepositoryFactory';
+import TaxTableRepository from '../../domain/repository/TaxTableRepository';
 
 export default class PlaceOrder {
   zipCode: ZipCodeCalculatorAPI;
   itemRepository: ItemRepository;
   couponRepository: CouponRepository;
   orderRepository: OrderRepository;
+  taxTableRepository: TaxTableRepository;
 
   constructor(repositoryFactory: RepositoryFactory, zipCodeCalculator: ZipCodeCalculatorAPI) {
     this.itemRepository = repositoryFactory.createItemRepository();
     this.couponRepository = repositoryFactory.createCouponRepository();
     this.orderRepository = repositoryFactory.createOrderRepository();
+    this.taxTableRepository = repositoryFactory.createTaxTableRepository();
     this.zipCode = zipCodeCalculator;
   }
 
@@ -30,6 +33,8 @@ export default class PlaceOrder {
       if (!item) throw new Error('Item not found');
       order.addItem(orderItem.id, item.price, orderItem.quantity);
       order.freight += FreightCalculator.calculate(distance, item) * orderItem.quantity;
+      const taxTables = await this.taxTableRepository.getByIdItem(item.id);
+      console.log(taxTables);
     }
     if (input.coupon) {
       const coupon = await this.couponRepository.getByCode(input.coupon);
@@ -41,6 +46,7 @@ export default class PlaceOrder {
       total,
       code: order.code.value,
       freight: order.freight,
+      taxes: order.taxes,
     };
   }
 }

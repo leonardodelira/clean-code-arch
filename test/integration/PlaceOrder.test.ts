@@ -81,3 +81,20 @@ test('Deve fazer um pedido calculando o codigo', async function () {
   const output = await placeOrder.execute(input);
   expect(output.code).toBe('202100000001');
 });
+
+test('Deve fazer um pedido calculando os impostos', async function () {
+  const input = {
+    cpf: '778.278.412-36',
+    zipCode: '13.426.059',
+    items: [
+      { id: '1', quantity: 2 },
+      { id: '2', quantity: 1 },
+      { id: '3', quantity: 3 },
+    ],
+    coupon: 'VALE20',
+  };
+  const placeOrder = new PlaceOrder(repositoryFactory, zipCodeCalculator);
+  const output = await placeOrder.execute(input);
+  expect(output.total).toBe(5982);
+  expect(output.taxes).toBe(1054.5);
+});

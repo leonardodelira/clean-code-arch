@@ -31,6 +31,7 @@ export default class GetOrder {
       code: order.code.value,
       freight: order.freight,
       total: order.getTotal(),
+      taxes: order.taxes,
       orderItems,
     };
   }

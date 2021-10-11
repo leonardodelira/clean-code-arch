@@ -2,10 +2,12 @@ import RepositoryFactory from '../../domain/factory/RepositoryFactory';
 import CouponRepository from '../../domain/repository/CouponRepository';
 import ItemRepository from '../../domain/repository/ItemRepository';
 import OrderRepository from '../../domain/repository/OrderRepository';
+import TaxTableRepository from '../../domain/repository/TaxTableRepository';
 import { PgPromiseDatabase } from '../database/PgPromiseDatabase';
 import CouponRepositoryDatabase from '../repository/database/CouponRepositoryDatabase';
 import { ItemRepositoryPostgres } from '../repository/database/ItemRepositoryPostgres';
 import OrderRepositoryDatabase from '../repository/database/OrderRepositoryDatabase';
+import TaxTableRepositoryDatabase from '../repository/database/TaxTableRepositoryDatabase';
 
 export class DatabaseRepositoryFactory implements RepositoryFactory {
   createItemRepository(): ItemRepository {
@@ -16,5 +18,8 @@ export class DatabaseRepositoryFactory implements RepositoryFactory {
   }
   createOrderRepository(): OrderRepository {
     return new OrderRepositoryDatabase(PgPromiseDatabase.getInstance());
+  }
+  createTaxTableRepository(): TaxTableRepository {
+    return new TaxTableRepositoryDatabase(PgPromiseDatabase.getInstance());
   }
 }

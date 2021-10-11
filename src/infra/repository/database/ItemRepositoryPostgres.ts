@@ -9,7 +9,7 @@ export class ItemRepositoryPostgres implements ItemRepository {
     this.database = database;
   }
 
-  async getById(id: string): Promise<Item | undefined> {
+  async getById(id: number): Promise<Item | undefined> {
     const itemData = await this.database.one('select * from ccca.item where id = $1', [id]);
     return new Item(
       itemData.id,
