@@ -60,3 +60,15 @@ insert into ccca.tax_table (id_item, type, value) values (1, 'november', 5);
 insert into ccca.tax_table (id_item, type, value) values (2, 'november', 5);
 insert into ccca.tax_table (id_item, type, value) values (3, 'november', 1);
 alter table ccca.order add column taxes numeric;
+
+create table ccca.stock_entry (
+	id serial primary key,
+	id_item integer,
+	operation text,
+	quantity integer,
+	date timestamp default now()
+);
+
+insert into ccca.stock_entry (id_item, operation, quantity) values (1, 'in', 10);
+insert into ccca.stock_entry (id_item, operation, quantity) values (2, 'in', 10);
+insert into ccca.stock_entry (id_item, operation, quantity) values (3, 'in', 10);

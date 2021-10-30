@@ -11,6 +11,8 @@ let zipCodeCalculator: ZipCodeCalculatorAPI;
 beforeEach(async function () {
   repositoryFactory = new DatabaseRepositoryFactory();
   const orderRepository = repositoryFactory.createOrderRepository();
+  const stockEntryRepository = repositoryFactory.createStockEntryRepository();
+  await stockEntryRepository.clean();
   await orderRepository.clean();
   zipCodeCalculator = new ZipCodeCalculatorAPIMemory();
 });

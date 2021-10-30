@@ -2,7 +2,7 @@ import { PlaceOrderInput } from './PlaceOrderInput';
 import { PlaceOrderOutput } from './PlaceOrderOutput';
 import ZipCodeCalculatorAPI from '../../domain/gateway/ZipCodeCalculatorAPI';
 import RepositoryFactory from '../../domain/factory/RepositoryFactory';
-import OrderService from '../../domain/service/OrderService';
+import OrderCreator from '../../domain/service/OrderCreator';
 
 export default class PlaceOrder {
   zipCode: ZipCodeCalculatorAPI;
@@ -14,7 +14,7 @@ export default class PlaceOrder {
   }
 
   async execute(input: PlaceOrderInput): Promise<PlaceOrderOutput> {
-    const orderService = new OrderService(this.repositoryFactory, this.zipCode);
+    const orderService = new OrderCreator(this.repositoryFactory, this.zipCode);
     const order = await orderService.create(input);
     const total = order.getTotal();
     return {

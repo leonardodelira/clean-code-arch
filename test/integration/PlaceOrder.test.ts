@@ -10,6 +10,8 @@ let zipCodeCalculator: ZipCodeCalculatorAPI;
 beforeEach(async function () {
   repositoryFactory = new DatabaseRepositoryFactory();
   const orderRepository = repositoryFactory.createOrderRepository();
+  const stockEntryRepository = repositoryFactory.createStockEntryRepository();
+  await stockEntryRepository.clean();
   await orderRepository.clean();
   zipCodeCalculator = new ZipCodeCalculatorAPIMemory();
 });
@@ -97,4 +99,19 @@ test('Deve fazer um pedido calculando os impostos', async function () {
   const output = await placeOrder.execute(input);
   expect(output.total).toBe(5982);
   expect(output.taxes).toBe(1054.5);
+});
+
+test('Não deve ser possível fazer um pedido de item sem estoque', async function () {
+  const input = {
+    cpf: '778.278.412-36',
+    zipCode: '13.426.059',
+    items: [
+      { id: '1', quantity: 2 },
+      { id: '2', quantity: 1 },
+      { id: '3', quantity: 3 },
+    ],
+    coupon: 'VALE20',
+  };
+  const placeOrder = new PlaceOrder(repositoryFactory, zipCodeCalculator);
+  expect(placeOrder.execute(input)).rejects.toThrow(new Error('Out of stock'));
 });
