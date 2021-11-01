@@ -1,2 +1,11 @@
-# clean-code-arch
-Curso Clean Code e Clean Architecture com Rodrigo Branas
+# Clean Code, Clean Architecture, DDD e Solid
+
+##### Treinamento realizado com o professor Rodrigo Branas
+
+## Foco do treinamento
+    - TDD
+    - SOLID
+    - Design Patterns
+    - DDD
+    - Clean Code
+    - Clean Architecture
